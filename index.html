@@ -19,6 +19,8 @@
     </div>
     <div class="calculator-screen">
         <div class="calculator-screen-input">
+            <!-- List with all the calculations -->
+            <ul class="list-group list-group-flush" id="last-calc"></ul>
             <label for="valueInput" id="resultT"></label>
             <input class="value-input" id="valueInput" type="text" disabled>
         </div>
@@ -35,7 +37,7 @@
                 <button class="btn btn-dark-mode">%</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode">/</button>
+                <button class="btn btn-dark-mode btnSign" value="/">/</button>
             </div>
         </div>
         <div class="row">
@@ -63,7 +65,7 @@
                 <button class="btn btn-dark-mode btnValue" value="6">6</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode">-</button>
+                <button class="btn btn-dark-mode btnSign" value="-">-</button>
             </div>
         </div>
         <div class="row">

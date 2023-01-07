@@ -98,3 +98,18 @@ body {
 #resultT {
     color: rgba(5, 223, 24, 0.65);
 }
+
+#last-calc {
+    /* infinite scroll list */
+    color: #05df18;
+    margin: 1em auto;
+    padding: 0;
+
+    height: 4em;
+    overflow: auto;
+}
+
+#last-calc li {
+    margin-top: 0.5em;
+    padding: 0;
+}
