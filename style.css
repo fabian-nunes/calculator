@@ -3,7 +3,7 @@ body {
 }
 
 .calculator {
-    background: whitesmoke;
+    background: #001510;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     margin: 10px auto 0;
@@ -13,8 +13,8 @@ body {
 }
 
 .calculator-screen {
-    background: #fff;
-    border: 1px solid #ccc;
+    background: #272827;
+    border: 1px solid #272827;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     color: #333;
@@ -28,11 +28,8 @@ body {
 }
 
 .btn {
-    background: #fff;
-    border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    color: #333;
     cursor: pointer;
     font-size: 20px;
     font-weight: 700;
@@ -40,6 +37,17 @@ body {
     margin: 5px;
     outline: none;
     width: 70px;
+}
+
+.btn-dark-mode {
+    background: #001510;
+    border: 2px solid #00bf8f;
+    color: #00bf8f;
+}
+
+.btn-dark-mode:hover {
+    background: #00bf8f;
+    color: #001510;
 }
 
 .big-btn {
@@ -74,4 +82,19 @@ body {
 .calculator-screen-input {
     position: absolute;
     bottom: 0;
+}
+
+.value-input {
+    background: transparent;
+    border: none;
+    font-size: 2em;
+    outline: none;
+    text-align: right;
+    width: 100%;
+    color: #05df18;
+    height: fit-content;
+}
+
+#resultT {
+    color: rgba(5, 223, 24, 0.65);
 }
