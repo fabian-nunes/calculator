@@ -1,0 +1,77 @@
+body {
+    background: linear-gradient(to right, #45a247, #283c86); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.calculator {
+    background: whitesmoke;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 10px auto 0;
+    max-width: 400px;
+    padding: 10px;
+    width: 100%;
+}
+
+.calculator-screen {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 20px;
+    padding: 10px;
+    text-align: right;
+    /* height: 50% of the page; */
+    height: 44vh;
+    position: relative;
+}
+
+.btn {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: #333;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+    height: 50px;
+    margin: 5px;
+    outline: none;
+    width: 70px;
+}
+
+.big-btn {
+    width: 165px;
+}
+
+.custom-btn {
+    width: fit-content;
+    height: auto;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    margin: 5px;
+}
+
+.btn-dark {
+    background-color: #333333;
+    color: #fff;
+    border: 0;
+}
+
+.btn-dark:hover {
+    background-color: #fff;
+    color: #333333;
+    border: 1px solid #333333;
+}
+
+.calculator-screen-input {
+    position: absolute;
+    bottom: 0;
+}
