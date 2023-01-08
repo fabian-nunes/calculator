@@ -67,9 +67,40 @@
     color: #00bf8f;
 }
 
+.btn-dark-modal {
+    background: #333333 !important;
+    border: 2px solid #fff !important;
+    color: #fff !important;
+}
+
+.btn-light-modal {
+    background: #fff !important;
+    border: 2px solid #333333 !important;
+    color: #333333 !important;
+}
+
+
 .btn-dark-mode:hover {
     background: #00bf8f;
     color: #001510;
+}
+
+.btn-dark-modal:hover {
+    background: #fff !important;
+    color: #333333 !important;
+}
+
+.btn-light-modal:hover {
+    background: #333333 !important;
+    color: #fff !important;
+}
+
+.border-dark-mode {
+    border-color: #fff !important;
+}
+
+.border-light-mode {
+    border-color: #333 !important;
 }
 
 .btn-light-mode {
@@ -158,4 +189,10 @@ btn-light {
 
 .input-light {
     color: #0a7ab3;
+}
+
+.swal2-confirm {
+    background-color: #00bf8f;
+    border: 1px solid #00bf8f;
+    color: #001510;
 }

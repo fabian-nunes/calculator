@@ -24,7 +24,15 @@ $(document).ready(function() {
     });
 
     $("#clear").click(function() {
+        sign = false;
+        total = 0;
+        calc = "";
+        cSign = "";
+        eq = false;
         $("#valueInput").val("");
+        $("#resultT").text("");
+        //remove all li elements
+        $("#last-calc").empty();
     });
 
     $("#delete").click(function() {
@@ -82,8 +90,13 @@ $(document).ready(function() {
         if (eq == false) {
             let value = $("#valueInput").val();
                 if (calc.indexOf("-") == -1) {
+                    //if value last character is a sign
+                    if (value.slice(-1) == "+" || value.slice(-1) == "-" || value.slice(-1) == "*" || value.slice(-1) == "/") {
+                        $("#valueInput").val(value + "-");
+                    } else {
+                        $("#valueInput").val("-" + value);
+                    }
                     calc = "-" + calc;
-                    $("#valueInput").val("-" + value);
                 } else {
                     calc = calc.slice(1);
                     $("#valueInput").val(value.slice(1));
@@ -91,28 +104,42 @@ $(document).ready(function() {
             }
     });
 
+    $("#btnPercent").click(function() {
+        if (eq == false) {
+            let value = $("#valueInput").val();
+            if (value != "") {
+                let per = calc / 100;
+                //change calc in valueInput to percentage
+                $("#valueInput").val(value.slice(0, -calc.length) + per);
+                calc = per;
+            }
+        }
+    });
+
     function calculate(sign) {
         let acc = "";
+        let parcel = total
         switch (sign) {
             case "+":
+
                 total = total + parseFloat(calc);
                 total = parseFloat(total.toFixed(2));
-                acc = total + "+" +calc + "=" + total;
+                acc = parcel + "+" +calc + "=" + total;
                 break;
             case "-":
                 total = total - parseFloat(calc);
                 total = parseFloat(total.toFixed(2));
-                acc = total + "-" +calc + "=" + total;
+                acc = parcel + "-" +calc + "=" + total;
                 break;
             case "*":
                 total = total * parseFloat(calc);
                 total = parseFloat(total.toFixed(2));
-                acc = total + "*" +calc + "=" + total;
+                acc = parcel + "*" +calc + "=" + total;
                 break;
             case "/":
                 total = total / parseFloat(calc);
                 total = parseFloat(total.toFixed(2));
-                acc = total + "/" +calc + "=" + total;
+                acc = parcel + "/" +calc + "=" + total;
                 break;
         }
         // Create a new <li> element
@@ -146,6 +173,8 @@ $(document).ready(function() {
         //Change the mode in the button mode
         document.getElementById("mode").classList.remove("btn-dark");
         document.getElementById("mode").classList.add("btn-light");
+        document.getElementById("group").classList.remove("btn-dark");
+        document.getElementById("group").classList.add("btn-light");
         document.getElementById("icon").classList.remove("fa-moon");
         document.getElementById("icon").classList.add("fa-sun");
         //change the mode in the calculator
@@ -181,6 +210,8 @@ $(document).ready(function() {
         //Change the mode in the button mode
         document.getElementById("mode").classList.remove("btn-light");
         document.getElementById("mode").classList.add("btn-dark");
+        document.getElementById("group").classList.remove("btn-light");
+        document.getElementById("group").classList.add("btn-dark");
         document.getElementById("icon").classList.remove("fa-sun");
         document.getElementById("icon").classList.add("fa-moon");
         //change the mode in the calculator
@@ -207,13 +238,50 @@ $(document).ready(function() {
     }
 
     $("#mode").click(function() {
-        //Get the mode from local storage
-        var mode = localStorage.getItem("mode");
         //If mode is dark or null
         if (mode == "dark" || mode == null) {
             lightMode();
+            mode = "light";
+            localStorage.setItem("mode", mode);
         } else {
             darkMode();
+            mode = "dark";
+            localStorage.setItem("mode", mode);
         }
+    });
+
+    $("#group").click(function() {
+        if (mode == "dark" || mode == null) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Projeto calculadora',
+                text: 'Calculadora desenvolvida em HTML, CSS e JavaScript para a disciplina de Matemática A do 11ºAno do Agrupamento de Escolas de Oliveira do Hospital.',
+                footer: 'Projeto desenvolvido por: Francisco Pereira,.....',
+                color: '#fff',
+                background: '#333333',
+                iconColor: '#fff',
+                customClass: {
+                    confirmButton: 'btn btn-mode btn-dark-modal',
+                    footer: 'border-top border-dark-mode'
+                },
+                buttonsStyling: false,
+            });
+        } else {
+            Swal.fire({
+                icon: 'info',
+                title: 'Projeto calculadora',
+                text: 'Calculadora desenvolvida em HTML, CSS e JavaScript para a disciplina de Matemática A do 11ºAno do Agrupamento de Escolas de Oliveira do Hospital.',
+                footer: 'Projeto desenvolvido por: Francisco Pereira,.....',
+                color: '#333333',
+                background: '#fff',
+                iconColor: '#333333',
+                customClass: {
+                    confirmButton: 'btn btn-mode btn-light-modal',
+                    footer: 'border-top border-light-mode'
+                },
+                buttonsStyling: false,
+            });
+        }
+
     });
 });
