@@ -4,18 +4,23 @@ $(document).ready(function() {
     var sign = false;
     var total = 0;
     var calc = "";
-    var parcel = 0;
     var cSign = "";
+    var eq = false;
     $("#valueInput").val("");
 
     $(".btnValue").click(function() {
-        let value = $(this).val();
-        calc += value;
-        let currentVal = $("#valueInput").val();
-        parcel = currentVal + value;
+        if (eq == false) {
+            let value = $(this).val();
+            calc += value;
+            let currentVal = $("#valueInput").val();
 
-        $("#valueInput").val(currentVal + value);
-        sign = false;
+            if (total != 0 && sign == false) {
+                $("#resultT").text(total);
+            }
+
+            $("#valueInput").val(currentVal + value);
+            sign = false;
+        }
     });
 
     $("#clear").click(function() {
@@ -34,7 +39,9 @@ $(document).ready(function() {
                 if (total == 0) {
                     total = parseFloat(calc);
                 } else {
-                    calculate(cSign);
+                    if (eq == false) {
+                        calculate(cSign);
+                    }
                 }
                 calc = "";
                 cSign = $(this).val();
@@ -47,31 +54,64 @@ $(document).ready(function() {
             let signT = $(this).val();
             $("#valueInput").val(value.slice(0, -1) + signT);
         }
+        eq = false;
     });
 
     $("#equal").click(function() {
-        calculate(cSign)
+        if (sign == false && calc != "" && cSign != "") {
+            calculate(cSign);
+            $("#valueInput").val(total);
+            eq = true;
+        }
+    });
 
-        $("#valueInput").val(total);
+    $("#btnPoint").click(function() {
+        if (eq == false) {
+            let value = $("#valueInput").val();
+            if (value != "") {
+               //detect if calc already has a point
+                if (calc.indexOf(".") == -1) {
+                    calc += ".";
+                    $("#valueInput").val(value + ".");
+                }
+            }
+        }
+    });
+
+    $("#valSign").click(function() {
+        if (eq == false) {
+            let value = $("#valueInput").val();
+                if (calc.indexOf("-") == -1) {
+                    calc = "-" + calc;
+                    $("#valueInput").val("-" + value);
+                } else {
+                    calc = calc.slice(1);
+                    $("#valueInput").val(value.slice(1));
+                }
+            }
     });
 
     function calculate(sign) {
         let acc = "";
         switch (sign) {
             case "+":
-                total = total + parseInt(calc);
+                total = total + parseFloat(calc);
+                total = parseFloat(total.toFixed(2));
                 acc = total + "+" +calc + "=" + total;
                 break;
             case "-":
-                total = total - parseInt(calc);
+                total = total - parseFloat(calc);
+                total = parseFloat(total.toFixed(2));
                 acc = total + "-" +calc + "=" + total;
                 break;
             case "*":
-                total = total * parseInt(calc);
+                total = total * parseFloat(calc);
+                total = parseFloat(total.toFixed(2));
                 acc = total + "*" +calc + "=" + total;
                 break;
             case "/":
-                total = total / parseInt(calc);
+                total = total / parseFloat(calc);
+                total = parseFloat(total.toFixed(2));
                 acc = total + "/" +calc + "=" + total;
                 break;
         }
@@ -121,6 +161,15 @@ $(document).ready(function() {
         //change screen mode
         document.getElementById("screen").classList.remove("light-screen");
         document.getElementById("screen").classList.add("dark-screen");
+        //change the mode of input
+        document.getElementById("valueInput").classList.remove("input-light");
+        document.getElementById("valueInput").classList.add("input-dark");
+        //change the mode of last-calc
+        document.getElementById("last-calc").classList.remove("input-light");
+        document.getElementById("last-calc").classList.add("input-dark");
+        //change the mode of resultT
+        document.getElementById("resultT").classList.remove("resultT-light");
+        document.getElementById("resultT").classList.add("resultT-dark");
     }
 
     function lightMode() {
@@ -146,6 +195,15 @@ $(document).ready(function() {
         //change screeen mode
         document.getElementById("screen").classList.remove("dark-screen");
         document.getElementById("screen").classList.add("light-screen");
+        //change the mode of input
+        document.getElementById("valueInput").classList.remove("input-dark");
+        document.getElementById("valueInput").classList.add("input-light");
+        // change mode of last-calc
+        document.getElementById("last-calc").classList.remove("input-dark");
+        document.getElementById("last-calc").classList.add("input-light");
+        //change the mode of resultT
+        document.getElementById("resultT").classList.remove("resultT-dark");
+        document.getElementById("resultT").classList.add("resultT-light");
     }
 
     $("#mode").click(function() {
