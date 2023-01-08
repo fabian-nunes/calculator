@@ -36,8 +36,24 @@ $(document).ready(function() {
     });
 
     $("#delete").click(function() {
-        let currentVal = $("#valueInput").val();
-        $("#valueInput").val(currentVal.slice(0, -1));
+        if (eq == false) {
+            let currentVal = $("#valueInput").val();
+            if (currentVal != "") {
+                //if last character is a sign, set sign to false
+                if (currentVal[currentVal.length - 1] == "+" || currentVal[currentVal.length - 1] == "-" || currentVal[currentVal.length - 1] == "*" || currentVal[currentVal.length - 1] == "/") {
+                    sign = false;
+                    cSign = "";
+                    eq = false;
+                    total = 0;
+                    $("#valueInput").val(currentVal.slice(0, -1));
+                    calc = $("#valueInput").val();
+                }  else {
+                    //if last character is not a sign, remove last character
+                    calc = calc.slice(0, -1);
+                    $("#valueInput").val(currentVal.slice(0, -1));
+                }
+            }
+        }
     });
 
     $(".btnSign").click(function() {
@@ -199,6 +215,12 @@ $(document).ready(function() {
         //change the mode of resultT
         document.getElementById("resultT").classList.remove("resultT-light");
         document.getElementById("resultT").classList.add("resultT-dark");
+        //change mode in all li in last-calc
+        let lis = document.getElementById("last-calc").getElementsByTagName("li");
+        for (let i = 0; i < lis.length; i++) {
+            lis[i].classList.remove("calc-light");
+            lis[i].classList.add("input-dark");
+        }
     }
 
     function lightMode() {
@@ -218,8 +240,8 @@ $(document).ready(function() {
         document.getElementById("calculator").classList.remove("bg-dark-mode");
         document.getElementById("calculator").classList.add("bg-light-mode");
         //add class to all the buttons with class btn-mode
-        var btns = document.getElementsByClassName("btn-mode");
-        for (var i = 0; i < btns.length; i++) {
+        let btns = document.getElementsByClassName("btn-mode");
+        for (let i = 0; i < btns.length; i++) {
             btns[i].classList.remove("btn-dark-mode");
             btns[i].classList.add("btn-light-mode");
         }
@@ -235,6 +257,12 @@ $(document).ready(function() {
         //change the mode of resultT
         document.getElementById("resultT").classList.remove("resultT-dark");
         document.getElementById("resultT").classList.add("resultT-light");
+        //change mode in all li in last-calc
+        var lis = document.getElementById("last-calc").getElementsByTagName("li");
+        for (var i = 0; i < lis.length; i++) {
+            lis[i].classList.remove("input-dark");
+            lis[i].classList.add("calc-light");
+        }
     }
 
     $("#mode").click(function() {

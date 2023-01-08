@@ -170,7 +170,6 @@ btn-light {
 
 #last-calc {
     /* infinite scroll list */
-    color: #05df18;
     margin: 1em auto;
     padding: 0;
 
@@ -181,6 +180,10 @@ btn-light {
 #last-calc li {
     margin-top: 0.5em;
     padding: 0;
+}
+
+.calc-light {
+    color: #1c92d2;
 }
 
 .input-dark {
