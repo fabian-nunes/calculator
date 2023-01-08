@@ -87,4 +87,75 @@ $(document).ready(function() {
         var objDiv = document.getElementById("last-calc");
         objDiv.scrollTop = objDiv.scrollHeight;
     }
+
+    //Get the mode from local storage
+    var mode = localStorage.getItem("mode");
+    //If mode is dark or null
+    if (mode == "dark" || mode == null) {
+        darkMode();
+    } else {
+        lightMode();
+    }
+
+    function darkMode() {
+        //Change the mode in local storage
+        localStorage.setItem("mode", "dark");
+        //Change the mode in the body
+        document.body.classList.remove("body-light");
+        document.body.classList.add("body-dark");
+        //Change the mode in the button mode
+        document.getElementById("mode").classList.remove("btn-dark");
+        document.getElementById("mode").classList.add("btn-light");
+        document.getElementById("icon").classList.remove("fa-moon");
+        document.getElementById("icon").classList.add("fa-sun");
+        //change the mode in the calculator
+        document.getElementById("calculator").classList.remove("bg-light-mode");
+        document.getElementById("calculator").classList.add("bg-dark-mode");
+
+        //add class to all the buttons with class btn-mode
+        var btns = document.getElementsByClassName("btn-mode");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].classList.remove("btn-light-mode");
+            btns[i].classList.add("btn-dark-mode");
+        }
+        //change screen mode
+        document.getElementById("screen").classList.remove("light-screen");
+        document.getElementById("screen").classList.add("dark-screen");
+    }
+
+    function lightMode() {
+        //Change the mode in local storage
+        localStorage.setItem("mode", "light");
+        //Change the mode in the body
+        document.body.classList.remove("body-dark");
+        document.body.classList.add("body-light");
+        //Change the mode in the button mode
+        document.getElementById("mode").classList.remove("btn-light");
+        document.getElementById("mode").classList.add("btn-dark");
+        document.getElementById("icon").classList.remove("fa-sun");
+        document.getElementById("icon").classList.add("fa-moon");
+        //change the mode in the calculator
+        document.getElementById("calculator").classList.remove("bg-dark-mode");
+        document.getElementById("calculator").classList.add("bg-light-mode");
+        //add class to all the buttons with class btn-mode
+        var btns = document.getElementsByClassName("btn-mode");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].classList.remove("btn-dark-mode");
+            btns[i].classList.add("btn-light-mode");
+        }
+        //change screeen mode
+        document.getElementById("screen").classList.remove("dark-screen");
+        document.getElementById("screen").classList.add("light-screen");
+    }
+
+    $("#mode").click(function() {
+        //Get the mode from local storage
+        var mode = localStorage.getItem("mode");
+        //If mode is dark or null
+        if (mode == "dark" || mode == null) {
+            lightMode();
+        } else {
+            darkMode();
+        }
+    });
 });

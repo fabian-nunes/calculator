@@ -10,14 +10,14 @@
 </head>
 <body>
 <!-- Calculator Section -->
-<section class="calculator">
+<section class="calculator" id="calculator">
     <div class="ligh-dark-mode">
         <!-- circle btn with icon -->
-        <button class="custom-btn btn-dark">
-            <i class="fas fa-moon"></i>
+        <button class="custom-btn" id="mode">
+            <i class="fas" id="icon"></i>
         </button>
     </div>
-    <div class="calculator-screen">
+    <div class="calculator-screen" id="screen">
         <div class="calculator-screen-input">
             <!-- List with all the calculations -->
             <ul class="list-group list-group-flush" id="last-calc"></ul>
@@ -28,69 +28,72 @@
     <div class="calculator-buttons">
         <div class="row">
             <div class="col-3">
-                <button class="btn btn-dark-mode" id="clear">AC</button>
+                <button class="btn btn-mode" id="clear">AC</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode" id="delete">DEL</button>
+                <button class="btn btn-mode" id="delete">DEL</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode">%</button>
+                <button class="btn btn-mode">%</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode btnSign" value="/">/</button>
+                <button class="btn btn-mode btnSign" value="/">/</button>
             </div>
         </div>
         <div class="row">
             <div class="col-3">
-                <button class="btn btn-dark-mode btnValue" value="7">7</button>
+                <button class="btn btn-mode btnValue" value="7">7</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode btnValue" value="8">8</button>
+                <button class="btn btn-mode btnValue" value="8">8</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode btnValue" value="9">9</button>
+                <button class="btn btn-mode btnValue" value="9">9</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode btnSign" value="*">*</button>
+                <button class="btn btn-mode btnSign" value="*">*</button>
             </div>
         </div>
         <div class="row">
             <div class="col-3">
-                <button class="btn btn-dark-mode btnValue" value="4">4</button>
+                <button class="btn btn-mode btnValue" value="4">4</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode btnValue" value="5">5</button>
+                <button class="btn btn-mode btnValue" value="5">5</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode btnValue" value="6">6</button>
+                <button class="btn btn-mode btnValue" value="6">6</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode btnSign" value="-">-</button>
+                <button class="btn btn-mode btnSign" value="-">-</button>
             </div>
         </div>
         <div class="row">
             <div class="col-3">
-                <button class="btn btn-dark-mode btnValue" value="1">1</button>
+                <button class="btn btn-mode btnValue" value="1">1</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode btnValue" value="2">2</button>
+                <button class="btn btn-mode btnValue" value="2">2</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode btnValue" value="3">3</button>
+                <button class="btn btn-mode btnValue" value="3">3</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode btnSign" value="+">+</button>
+                <button class="btn btn-mode btnSign" value="+">+</button>
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
-                <button class="btn big-btn btn-dark-mode btnValue" value="0">0</button>
+            <div class="col-3">
+                <button class="btn btn-mode btnValue" value="0">0</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode">.</button>
+                <button class="btn btn-mode">+/-</button>
             </div>
             <div class="col-3">
-                <button class="btn btn-dark-mode" id="equal">=</button>
+                <button class="btn btn-mode">.</button>
+            </div>
+            <div class="col-3">
+                <button class="btn btn-mode" id="equal">=</button>
             </div>
         </div>
     </div>
