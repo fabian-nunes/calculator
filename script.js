@@ -6,16 +6,42 @@ $(document).ready(function() {
     var calc = "";
     var cSign = "";
     var eq = false;
+
+    var lastConts = JSON.parse(localStorage.getItem("lastConts"));
+    if (lastConts == null) {
+        lastConts = [];
+    } else {
+        for (let i = 0; i < lastConts.length; i++) {
+            // Create a new <li> element
+            var li = document.createElement("li");
+            // Create a text node
+            var text = document.createTextNode(lastConts[i]);
+            // Append the text to <li>
+            li.appendChild(text);
+            // Append <li> to <ul> with id="myList"
+            document.getElementById("last-calc").appendChild(li);
+        }
+    }
+
     $("#valueInput").val("");
 
     $(".btnValue").click(function() {
         if (eq == false) {
             let value = $(this).val();
             calc += value;
+            $("#resultT").text(total);
             let currentVal = $("#valueInput").val();
 
             if (total != 0 && sign == false) {
                 $("#resultT").text(total);
+            }
+
+            if (total == 0) {
+                $("#resultT").text(calc);
+            }
+
+            if(cSign != ""){
+               calculateT(cSign)
             }
 
             $("#valueInput").val(currentVal + value);
@@ -33,6 +59,9 @@ $(document).ready(function() {
         $("#resultT").text("");
         //remove all li elements
         $("#last-calc").empty();
+        //clear local storage lastConts
+        lastConts = [];
+        localStorage.setItem("lastConts", JSON.stringify(lastConts));
     });
 
     $("#delete").click(function() {
@@ -47,10 +76,12 @@ $(document).ready(function() {
                     total = 0;
                     $("#valueInput").val(currentVal.slice(0, -1));
                     calc = $("#valueInput").val();
+                    $("#resultT").text(calc);
                 }  else {
                     //if last character is not a sign, remove last character
                     calc = calc.slice(0, -1);
                     $("#valueInput").val(currentVal.slice(0, -1));
+                    $("#resultT").text(calc);
                 }
             }
         }
@@ -158,6 +189,7 @@ $(document).ready(function() {
                 acc = parcel + "/" +calc + "=" + total;
                 break;
         }
+
         // Create a new <li> element
         var li = document.createElement("li");
         // Create a text node
@@ -166,9 +198,36 @@ $(document).ready(function() {
         li.appendChild(text);
         // Append <li> to <ul> with id="myList"
         document.getElementById("last-calc").appendChild(li);
+        //save last calculation in a array to local storage
+        lastConts.push(acc);
+        localStorage.setItem("lastConts", JSON.stringify(lastConts));
         //Scroll to bottom
         var objDiv = document.getElementById("last-calc");
         objDiv.scrollTop = objDiv.scrollHeight;
+    }
+
+    function calculateT(sign) {
+        let acc = 0;
+        switch (sign) {
+            case "+":
+                acc = total + parseFloat(calc);
+                acc = parseFloat(acc.toFixed(2));
+
+                break;
+            case "-":
+                acc = total - parseFloat(calc);
+                acc = parseFloat(total.toFixed(2));
+                break;
+            case "*":
+                acc = total * parseFloat(calc);
+                acc = parseFloat(total.toFixed(2));
+                break;
+            case "/":
+                acc = total / parseFloat(calc);
+                acc = parseFloat(total.toFixed(2));
+                break;
+        }
+        $("#resultT").text(acc);
     }
 
     //Get the mode from local storage
