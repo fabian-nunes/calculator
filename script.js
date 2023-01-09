@@ -159,6 +159,7 @@ $(document).ready(function() {
                 //change calc in valueInput to percentage
                 $("#valueInput").val(value.slice(0, -calc.length) + per);
                 calc = per;
+                calculateT(cSign);
             }
         }
     });
@@ -216,15 +217,15 @@ $(document).ready(function() {
                 break;
             case "-":
                 acc = total - parseFloat(calc);
-                acc = parseFloat(total.toFixed(2));
+                acc = parseFloat(acc.toFixed(2));
                 break;
             case "*":
                 acc = total * parseFloat(calc);
-                acc = parseFloat(total.toFixed(2));
+                acc = parseFloat(acc.toFixed(2));
                 break;
             case "/":
                 acc = total / parseFloat(calc);
-                acc = parseFloat(total.toFixed(2));
+                acc = parseFloat(acc.toFixed(2));
                 break;
         }
         $("#resultT").text(acc);
