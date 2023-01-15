@@ -1,16 +1,25 @@
 // function to add value to input field when button is clicked with class "btnValue"
 
+//Everything inside this statement will be executed when the page is loaded
 $(document).ready(function() {
+    //Last value entered is a sign
     var sign = false;
+    //Current total of the calculation
     var total = 0;
+    //Variable to store the string of the calculation
     var calc = "";
+    //Variable to store the symbol of the calculation
     var cSign = "";
+    //Variable to store if the last action was a equals sign
     var eq = false;
 
+    //Get the history of calculations from local storage
     var lastConts = JSON.parse(localStorage.getItem("lastConts"));
+    //If there is no history, create an empty array
     if (lastConts == null) {
         lastConts = [];
     } else {
+        //If there is history, display it
         for (let i = 0; i < lastConts.length; i++) {
             // Create a new <li> element
             var li = document.createElement("li");
@@ -23,32 +32,41 @@ $(document).ready(function() {
         }
     }
 
+    //Clear calculation screen on load
     $("#valueInput").val("");
 
+    //Function to add value to input field when button is clicked with class "btnValue"
     $(".btnValue").click(function() {
+        //The buttons only work if the last action was not an equals sign
         if (eq == false) {
+            //Get the value of the button that was clicked
             let value = $(this).val();
             calc += value;
+            //Display the value on the screen
             $("#resultT").text(total);
             let currentVal = $("#valueInput").val();
-
+            //If total is diffrent from 0 and the sign is false, the total is displayed in the result field
             if (total != 0 && sign == false) {
                 $("#resultT").text(total);
             }
 
+            //If the total is 0, the current value is displayed in the result field
             if (total == 0) {
                 $("#resultT").text(calc);
             }
 
+            //Calculate the total based on the current sign selected
             if(cSign != ""){
                calculateT(cSign)
             }
 
+            //Update the input field with the current value
             $("#valueInput").val(currentVal + value);
             sign = false;
         }
     });
 
+    //Function to clear the screen and localstorage
     $("#clear").click(function() {
         sign = false;
         total = 0;
@@ -64,9 +82,12 @@ $(document).ready(function() {
         localStorage.setItem("lastConts", JSON.stringify(lastConts));
     });
 
+    //Function to delete the last character
     $("#delete").click(function() {
+        //The buttons only work if the last action was not an equals sign
         if (eq == false) {
             let currentVal = $("#valueInput").val();
+            //If the current value is not empty, remove the last character
             if (currentVal != "") {
                 //if last character is a sign, set sign to false
                 if (currentVal[currentVal.length - 1] == "+" || currentVal[currentVal.length - 1] == "-" || currentVal[currentVal.length - 1] == "*" || currentVal[currentVal.length - 1] == "/") {
@@ -87,44 +108,62 @@ $(document).ready(function() {
         }
     });
 
+    //Function to add a sign to the calculation
     $(".btnSign").click(function() {
+        //If the last action was not a sign
         if (sign == false) {
             let value = $("#valueInput").val();
+            //If the value is not empty
             if (value != "") {
+                //If total is 0, set total to the current value
                 if (total == 0) {
                     total = parseFloat(calc);
                 } else {
+                    //If the equals sign was not pressed, calculate the total
                     if (eq == false) {
                         calculate(cSign);
                     }
                 }
+                //Clear the calc variable for the next part of the calculation
                 calc = "";
+                //Get the current sign
                 cSign = $(this).val();
+                //Display the total in the result field
                 $("#resultT").text(total);
+                //Update the state of sign to true
                 sign = true;
+                //Update the input field with the current value
                 $("#valueInput").val(total + cSign);
             }
+            //If the last action was a sign, update the sign
         } else {
             let value = $("#valueInput").val();
             let signT = $(this).val();
+            //Remove the last sign and add the new sign
             $("#valueInput").val(value.slice(0, -1) + signT);
         }
         eq = false;
     });
 
+    //Function to calculate the total
     $("#equal").click(function() {
+        //If the last action was not a sign, the calc is not empty and the current sign is not empty
         if (sign == false && calc != "" && cSign != "") {
             calculate(cSign);
             $("#valueInput").val(total);
+            //Update the state of eq to true
             eq = true;
         }
     });
 
+    //Function to add a floating point to the calculation
     $("#btnPoint").click(function() {
+        //If the equals sign was not pressed
         if (eq == false) {
             let value = $("#valueInput").val();
+            //If the value is not empty
             if (value != "") {
-               //detect if calc already has a point
+               //detect if calc already has a point, if not add a point
                 if (calc.indexOf(".") == -1) {
                     calc += ".";
                     $("#valueInput").val(value + ".");
@@ -133,9 +172,12 @@ $(document).ready(function() {
         }
     });
 
+    //Function to change value to negative or positive
     $("#valSign").click(function() {
+        //If the equals sign was not pressed
         if (eq == false) {
             let value = $("#valueInput").val();
+            //If the value does not start with a minus sign, add a minus sign
                 if (calc.indexOf("-") == -1) {
                     //if value last character is a sign
                     if (value.slice(-1) == "+" || value.slice(-1) == "-" || value.slice(-1) == "*" || value.slice(-1) == "/") {
@@ -144,6 +186,7 @@ $(document).ready(function() {
                         $("#valueInput").val("-" + value);
                     }
                     calc = "-" + calc;
+                    //If the value starts with a minus sign, remove the minus sign
                 } else {
                     calc = calc.slice(1);
                     $("#valueInput").val(value.slice(1));
@@ -151,10 +194,14 @@ $(document).ready(function() {
             }
     });
 
+    //Function to calculate the percentage of the current value
     $("#btnPercent").click(function() {
+        //If the equals sign was not pressed
         if (eq == false) {
             let value = $("#valueInput").val();
+            //If the value is not empty
             if (value != "") {
+                //Perform the calculation
                 let per = calc / 100;
                 //change calc in valueInput to percentage
                 $("#valueInput").val(value.slice(0, -calc.length) + per);
@@ -164,29 +211,39 @@ $(document).ready(function() {
         }
     });
 
+    //Function to calculate the total based on the current sign
     function calculate(sign) {
         let acc = "";
         let parcel = total
+        //What sign is selected
         switch (sign) {
             case "+":
 
                 total = total + parseFloat(calc);
+                //Numerical total
                 total = parseFloat(total.toFixed(2));
+                //String calculation to display in the history
                 acc = parcel + "+" +calc + "=" + total;
                 break;
             case "-":
                 total = total - parseFloat(calc);
+                //Numerical total
                 total = parseFloat(total.toFixed(2));
+                //String calculation to display in the history
                 acc = parcel + "-" +calc + "=" + total;
                 break;
             case "*":
                 total = total * parseFloat(calc);
+                //Numerical total
                 total = parseFloat(total.toFixed(2));
+                //String calculation to display in the history
                 acc = parcel + "*" +calc + "=" + total;
                 break;
             case "/":
                 total = total / parseFloat(calc);
+                //Numerical total
                 total = parseFloat(total.toFixed(2));
+                //String calculation to display in the history
                 acc = parcel + "/" +calc + "=" + total;
                 break;
         }
@@ -207,6 +264,7 @@ $(document).ready(function() {
         objDiv.scrollTop = objDiv.scrollHeight;
     }
 
+    //Function similar to calculate but this is executed when the equals sign is not pressed and the user presses a sign to update the current total
     function calculateT(sign) {
         let acc = 0;
         switch (sign) {
@@ -240,6 +298,7 @@ $(document).ready(function() {
         lightMode();
     }
 
+    //Function to change the mode to dark
     function darkMode() {
         //Change the mode in local storage
         localStorage.setItem("mode", "dark");
@@ -283,6 +342,7 @@ $(document).ready(function() {
         }
     }
 
+    //Function to change the mode to light
     function lightMode() {
         //Change the mode in local storage
         localStorage.setItem("mode", "light");
@@ -325,6 +385,7 @@ $(document).ready(function() {
         }
     }
 
+    //Function to change the mode when the button is clicked and save the mode in local storage
     $("#mode").click(function() {
         //If mode is dark or null
         if (mode == "dark" || mode == null) {
@@ -338,6 +399,7 @@ $(document).ready(function() {
         }
     });
 
+    //Function to open the modal with your names
     $("#group").click(function() {
         if (mode == "dark" || mode == null) {
             Swal.fire({
